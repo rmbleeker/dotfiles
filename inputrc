@@ -1,0 +1,19 @@
+#set expand-tilde on
+#set match-hidden-files on
+set skip-completed-text on
+set completion-ignore-case on
+set show-all-if-unmodified on
+#set show-all-if-ambiguous on
+
+TAB: complete
+"\e[1;5A": menu-complete            # Ctrl-up-arrow
+"\e[1;5B": menu-complete-backward   # Ctrl-down-arrow
+"\e[Z": menu-complete               # shift-TAB
+
+# mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
