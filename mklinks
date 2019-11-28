@@ -8,6 +8,6 @@ for entry in "${exclude_list[@]}"; do
 done
 
 for file in "${dotfiles[@]}"; do
-  ln -s "${file}" "${HOME}/.${file}"
+  ln -s "${PWD}/${file}" "${HOME}/.${file}"
 done
 
