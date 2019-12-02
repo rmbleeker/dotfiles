@@ -12,4 +12,3 @@ done
 for file in "${dotfiles[@]}"; do
   ln --force --relative --symbolic "${HOME}/${dotfile_dir}/${file}" "${HOME}/.${file}"
 done
-
