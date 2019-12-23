@@ -103,7 +103,7 @@ get_agent_pid() {
 }
 
 get_agent_socket() {
-  find /tmp/ssh-* -type s -user ${USER} -name "agent.$(( $(get_agent_pid) - 1 ))" 2> /dev/null
+  find /tmp/ssh-* -type s -user ${USER} -name "agent.*" 2> /dev/null
 }
 
 if [[ $(get_agent_pid) -gt 1 ]] && [[ $(get_agent_pid) -le $(< /proc/sys/kernel/pid_max) ]] && [[ -S $(get_agent_socket) ]]
