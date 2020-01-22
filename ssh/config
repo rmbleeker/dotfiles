@@ -1,0 +1,14 @@
+ForwardX11 no
+ForwardAgent no
+Compression yes
+ServerAliveInterval 60
+AddKeysToAgent yes
+
+ControlMaster auto
+ControlPath ~/.ssh/%r@%n:%p
+ControlPersist 4h
+
+
+## DEFAULT CONFIG, KEEP AT BOTTOM ##
+Host *
+  User admruudb
