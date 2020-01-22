@@ -1,14 +1,15 @@
 #!/bin/bash
 
-dotfile_dir=dotfiles
-
+dotfile_dir=${HOME}/dotfiles
 exclude_list=("LICENSE" "mklinks" "README.md")
-dotfiles=($(basename -a $(ls -d ${HOME}/${dotfile_dir}/*)))
+
+cd ${dotfile_dir} && dotfiles=($(find * -type f)) || exit 1
 
 for entry in "${exclude_list[@]}"; do
-  dotfiles=(${dotfiles[@]//*${entry}*})
+  dotfiles=(${dotfiles[@]//${entry}})
 done
 
 for file in "${dotfiles[@]}"; do
-  ln --force --relative --symbolic "${HOME}/${dotfile_dir}/${file}" "${HOME}/.${file}"
+  ln --force --relative --symbolic "${dotfile_dir}/${file}" "${HOME}/.${file}"
 done
+
