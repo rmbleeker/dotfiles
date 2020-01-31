@@ -5,6 +5,7 @@ set completion-ignore-case on
 set show-all-if-unmodified on
 #set show-all-if-ambiguous on
 
+Space: magic-space
 TAB: complete
 "\e[1;5A": menu-complete            # Ctrl-up-arrow
 "\e[1;5B": menu-complete-backward   # Ctrl-down-arrow
