@@ -3,3 +3,12 @@
 	email = ruud.bleeker@identiteitendiensten.nl
 [push]
 	default = simple
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[http]
+	sslCAInfo = /ansible/files/certs/cert/pidgitl01.adm.idend.lan.pem
+[lfs]
+	locksverify = true
