@@ -3,10 +3,12 @@
 dotfile_dir=${HOME}/dotfiles
 exclude_list=("LICENSE" "mklinks" "README.md")
 
-cd ${dotfile_dir}\
-  && dotfiles=($(find * -type f))\
-  && directories=($(find * -type d))\
-  || exit 1
+chmod --recursive --silent g= ${dotfile_dir}
+
+cd ${dotfile_dir} &&\
+  dotfiles=($(find * -type f)) &&\
+  directories=($(find * -type d)) ||\
+  exit 1
 
 for entry in "${exclude_list[@]}"; do
   dotfiles=(${dotfiles[@]//${entry}})
