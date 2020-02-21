@@ -13,7 +13,7 @@ set statusline +=%1*%=%10(line:\ %3l%)%*  "current line
 set statusline +=%2*%4(/%L%)%*            "total lines
 set statusline +=%1*%10(col:\ %3v%)%*     "virtual column number
 set statusline +=%2*%4(/%c%)%*            "actual column number
-set statusline +=%6*%10(0x%04B%)\ %*       "character under cursor
+set statusline +=%6*%10(0x%04B%)\ %*      "character under cursor
 
 hi User1 ctermfg=red       ctermbg=darkgray
 hi User2 ctermfg=darkred   ctermbg=darkgray
