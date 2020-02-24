@@ -21,6 +21,9 @@ HISTTIMEFORMAT="%F %T %Z | "
 # Number of history lines saved (default 500)
 HISTSIZE=1000
 
+# set the default editor
+export EDITOR=vim
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 

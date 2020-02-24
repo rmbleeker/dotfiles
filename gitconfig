@@ -12,3 +12,5 @@
 	sslCAInfo = /ansible/files/certs/cert/pidgitl01.adm.idend.lan.pem
 [lfs]
 	locksverify = true
+[core]
+	editor = /usr/bin/vim
