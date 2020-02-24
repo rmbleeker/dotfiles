@@ -11,16 +11,18 @@ set statusline +=%4*%<%F\ %*              "full path
 set statusline +=%2*%m%r%*                "modified and read-only flag
 set statusline +=%1*%=%10(line:\ %3l%)%*  "current line
 set statusline +=%2*%4(/%L%)%*            "total lines
-set statusline +=%1*%10(col:\ %3v%)\ %*   "virtual column number
-set statusline +=%6*%8(0x%04B%)\ %*       "character under cursor
+set statusline +=%1*%10(col:\ %3v%)%*     "virtual column number
+set statusline +=%2*%4(/%c%)%*            "actual column number
+set statusline +=%6*%10(0x%04B%)\ %*      "character under cursor
 
-hi User1 ctermfg=red       ctermbg=darkgrey
-hi User2 ctermfg=darkred   ctermbg=darkgrey
-hi User3 ctermfg=magenta   ctermbg=darkgrey
-hi User4 ctermfg=darkgreen ctermbg=darkgrey
-hi User5 ctermfg=blue      ctermbg=darkgrey
-hi User6 ctermfg=yellow    ctermbg=darkgrey
+hi User1 ctermfg=red       ctermbg=darkgray
+hi User2 ctermfg=darkred   ctermbg=darkgray
+hi User3 ctermfg=magenta   ctermbg=darkgray
+hi User4 ctermfg=darkgreen ctermbg=darkgray
+hi User5 ctermfg=blue      ctermbg=darkgray
+hi User6 ctermfg=yellow    ctermbg=darkgray
 
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml " foldmethod=indent
-autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+au BufNewFile,BufReadPre *.{yaml,yml} set filetype=yaml     "foldmethod=indent
+au BufNewFile,BufReadPre *.md         set filetype=markdown
+au FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
