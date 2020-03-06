@@ -22,7 +22,7 @@ hi User4 ctermfg=darkgreen ctermbg=darkgray
 hi User5 ctermfg=blue      ctermbg=darkgray
 hi User6 ctermfg=yellow    ctermbg=darkgray
 
-au BufNewFile,BufReadPre *.{yaml,yml} set filetype=yaml     "foldmethod=indent
-au BufNewFile,BufReadPre *.md         set filetype=markdown
+au BufNewFile,BufRead *.{yaml,yml} set filetype=yaml     "foldmethod=indent
+au BufNewFile,BufRead *.md         set filetype=markdown
 au FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
