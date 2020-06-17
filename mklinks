@@ -6,19 +6,19 @@ exclude_list=("LICENSE" "mklinks" "README.md")
 chmod --recursive --silent g= ${dotfile_dir}
 
 cd ${dotfile_dir} &&\
-  dotfiles=($(find * -type f)) &&\
+  files=($(find * -type f)) &&\
   directories=($(find * -type d)) ||\
   exit 1
 
-for entry in "${exclude_list[@]}"; do
-  dotfiles=(${dotfiles[@]//${entry}})
+for item in "${exclude_list[@]}"; do
+  files=(${files[@]//${item}})
 done
 
 for dir in "${directories[@]}"; do
   mkdir -p ${HOME}/${dir}
 done
 
-for file in "${dotfiles[@]}"; do
+for file in "${files[@]}"; do
   ln --force --relative --symbolic "${dotfile_dir}/${file}" "${HOME}/.${file}"
 done
 
