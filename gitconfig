@@ -12,3 +12,5 @@
 	locksverify = true
 [core]
 	editor = /usr/bin/vim
+[credential]
+	helper = store
