@@ -15,7 +15,7 @@ for item in "${exclude_list[@]}"; do
 done
 
 for dir in "${directories[@]}"; do
-  mkdir -p ${HOME}/${dir}
+  mkdir -p ${HOME}/.${dir}
 done
 
 for file in "${files[@]}"; do
