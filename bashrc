@@ -126,3 +126,7 @@ else
   eval $(ssh-agent -s)
 fi
 
+# set proxy if necessary
+if [ -f "$HOME/.proxy" ]; then
+  . "$HOME/.proxy"
+fi

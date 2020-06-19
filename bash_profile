@@ -23,8 +23,3 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
   PATH="$HOME/.local/bin:$PATH"
 fi
-
-# set proxy if necessary
-if [ -f "$HOME/.proxy ]; then
-  . "$HOME/.proxy"
-fi
