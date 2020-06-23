@@ -15,10 +15,10 @@ for item in "${exclude_list[@]}"; do
 done
 
 for dir in "${directories[@]}"; do
-  mkdir -p ${HOME}/.${dir}
+  mkdir --verbose --parents ${HOME}/.${dir}
 done
 
 for file in "${files[@]}"; do
-  ln --force --relative --symbolic "${dotfile_dir}/${file}" "${HOME}/.${file}"
+  ln --verbose --relative --symbolic "${dotfile_dir}/${file}" "${HOME}/.${file}"
 done
 
