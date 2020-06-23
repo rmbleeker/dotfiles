@@ -15,12 +15,12 @@ set statusline +=%1*%10(col:\ %3v%)%*     "virtual column number
 set statusline +=%2*%4(/%c%)%*            "actual column number
 set statusline +=%6*%10(0x%04B%)\ %*      "character under cursor
 
-hi User1 ctermfg=red       ctermbg=darkgray
-hi User2 ctermfg=darkred   ctermbg=darkgray
-hi User3 ctermfg=magenta   ctermbg=darkgray
-hi User4 ctermfg=darkgreen ctermbg=darkgray
-hi User5 ctermfg=blue      ctermbg=darkgray
-hi User6 ctermfg=yellow    ctermbg=darkgray
+hi User1 ctermfg=red       ctermbg=black
+hi User2 ctermfg=darkred   ctermbg=black
+hi User3 ctermfg=magenta   ctermbg=black
+hi User4 ctermfg=darkgreen ctermbg=black
+hi User5 ctermfg=blue      ctermbg=black
+hi User6 ctermfg=yellow    ctermbg=black
 
 au BufNewFile,BufRead *.{yaml,yml} set filetype=yaml     "foldmethod=indent
 au BufNewFile,BufRead *.md         set filetype=markdown
