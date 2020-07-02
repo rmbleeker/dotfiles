@@ -3,7 +3,7 @@
 dotfile_dir=${HOME}/dotfiles
 exclude_list=("LICENSE" "mklinks" "README.md")
 
-chmod --recursive --silent g= ${dotfile_dir}
+chmod --recursive --silent go= ${dotfile_dir}
 
 cd ${dotfile_dir} &&\
   files=($(find * -type f)) &&\
