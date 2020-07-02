@@ -11,6 +11,6 @@
 [lfs]
 	locksverify = true
 [core]
-	editor = /usr/bin/vim
+	editor = vim
 [credential]
 	helper = store
