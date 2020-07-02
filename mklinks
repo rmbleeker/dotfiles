@@ -19,6 +19,6 @@ for dir in "${directories[@]}"; do
 done
 
 for file in "${files[@]}"; do
-  ln --verbose --relative --symbolic "${dotfile_dir}/${file}" "${HOME}/.${file}" 2> /dev/null
+  ln --verbose --force --relative --symbolic "${dotfile_dir}/${file}" "${HOME}/.${file}" 2> /dev/null
 done
 
