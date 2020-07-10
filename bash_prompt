@@ -48,7 +48,7 @@ __set_bash_prompt()
     if [[ ${EUID} == 0 ]]; then
       PreGitPS1+="${BRed}\h${None} "
     else
-      PreGitPS1+="${Yel}\u@\h${None}:"
+      PreGitPS1+="${Yel}\u${None}@${Yel}\h${None}:"
     fi
 
     PreGitPS1+="${Blu}\w${None} "
