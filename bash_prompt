@@ -62,7 +62,7 @@ __set_bash_prompt()
 
   # Highlight non-standard exit codes
   if [[ $exit != 0 ]]; then
-    PostGitPS1="$Red[$exit]"
+    PostGitPS1=" $Red[$exit]"
   fi
 
   # Change colour of prompt if root
@@ -73,7 +73,7 @@ __set_bash_prompt()
   fi
 
   # Set PS1 from $PreGitPS1 + <git-status> + $PostGitPS1
-  __git_ps1 "$PreGitPS1" "$PostGitPS1" '(%s) '
+  __git_ps1 "$PreGitPS1" "$PostGitPS1" '(%s)'
 
   # echo '$PS1='"$PS1" # debug    
   # defaut Linux Mint 17.2 user prompt:
