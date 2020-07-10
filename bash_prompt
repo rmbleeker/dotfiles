@@ -27,7 +27,7 @@ __set_bash_prompt()
     local exit="$?" # Save the exit status of the last command
 
     # PS1 is made from $PreGitPS1 + <git-status> + $PostGitPS1
-    local PreGitPS1="${debian_chroot:+($debian_chroot)}"
+    local PreGitPS1="\n${debian_chroot:+($debian_chroot)}"
     local PostGitPS1=""
 
     if [[ $__colourise_prompt ]]; then
