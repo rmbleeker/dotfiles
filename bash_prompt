@@ -46,7 +46,7 @@ __set_bash_prompt()
 
     # No username and bright colour if root
     if [[ ${EUID} == 0 ]]; then
-      PreGitPS1+="$BRed\h "
+      PreGitPS1+="$BRed\h$None "
     else
       PreGitPS1+="$Gre\u@\h$None:"
     fi
@@ -62,29 +62,29 @@ __set_bash_prompt()
 
   # Highlight non-standard exit codes
   if [[ $exit != 0 ]]; then
-    PostGitPS1=" $Red[$exit]"
+    PostGitPS1=" $Red[$exit]$None"
   fi
 
   # Indicate the are background jobs
   local BackgroundJobs=$(jobs -r | wc -l)
   if [[ $BackgroundJobs -gt 2 ]]; then
-    PostGitPS1+=" $BRed[&:$BackgroundJobs]"
+    PostGitPS1+=" $BRed[&:$BackgroundJobs]$None"
   elif [[ $BackgroundJobs != 0 ]]; then
-    PostGitPS1+=" $BGre[&:$BackgroundJobs]"
+    PostGitPS1+=" $BGre[&:$BackgroundJobs]$None"
   fi
 
   # Indicate there are stopped jobs
   local StoppedJobs=$(jobs -s | wc -l)
   if [[ $StoppedJobs -gt 2 ]]; then
-    PostGitPS1+=" $BRed[x:$StoppedJobs]"
+    PostGitPS1+=" $BRed[x:$StoppedJobs]$None"
   elif [[ $StoppedJobs != 0 ]]; then
-    PostGitPS1+=" $BGre[x:$StoppedJobs]"
+    PostGitPS1+=" $BGre[x:$StoppedJobs]$None"
   fi
 
   # Show number of detached tmux and screen sessions
   local DetachedSessions=$(( $(screen -ls 2> /dev/null | /bin/grep -c -i detach) + $(tmux ls 2>/dev/null | /bin/grep -c -i -v attach) ))
   if [[ $DetachedSessions != 0 ]]; then
-    PostGitPS1+=" $Yel[$DetachedSessions]"
+    PostGitPS1+=" $Yel[$DetachedSessions]$None"
   fi
 
   # Change colour of prompt if root
