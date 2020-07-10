@@ -65,6 +65,12 @@ __set_bash_prompt()
     PostGitPS1=" $Red[$exit]"
   fi
 
+  # Show number of detached tmux and screen sessions
+  local DetachedSessions=$(( $(screen -ls 2> /dev/null | /bin/grep -c -i detach) + $(tmux ls 2>/dev/null | /bin/grep -c -i -v attach) ))
+  if [[ $DetachedSessions != 0 ]]; then
+    PostGitPS1+=" $Yel[$DetachedSessions]"
+  fi
+
   # Change colour of prompt if root
   if [[ ${EUID} == 0 ]]; then
     PostGitPS1+="\n""$BRed"'\$ '"$None"
