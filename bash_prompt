@@ -18,19 +18,19 @@ export GIT_PS1_DESCRIBE_STYLE="describe"  # detached HEAD style:
 # Check if we support colours
 __colour_enabled() {
     local -i colors=$(tput colors 2>/dev/null)
-    [[ $? -eq 0 ]] && [[ $colors -gt 2 ]]
+    [[ ${?} -eq 0 ]] && [[ ${colors} -gt 2 ]]
 }
 unset __colourise_prompt && __colour_enabled && __colourise_prompt=1
 
 __set_bash_prompt()
 {
-  local exit="$?" # Save the exit status of the last command
+  local exit="${?}" # Save the exit status of the last command
 
   # PS1 is made from $PreGitPS1 + <git-status> + $PostGitPS1
   local PreGitPS1="\n${debian_chroot:+($debian_chroot)}"
   local PostGitPS1=""
 
-  if [[ $__colourise_prompt ]]; then
+  if [[ ${__colourise_prompt} ]]; then
     export GIT_PS1_SHOWCOLORHINTS=1
 
     # Wrap the colour codes between \[ and \], so that
@@ -46,12 +46,12 @@ __set_bash_prompt()
 
     # No username and bright colour if root
     if [[ ${EUID} == 0 ]]; then
-      PreGitPS1+="$BRed\h$None "
+      PreGitPS1+="${BRed}\h${None} "
     else
-      PreGitPS1+="$Gre\u@\h$None:"
+      PreGitPS1+="${Gre}\u@\h${None}:"
     fi
 
-    PreGitPS1+="$Blu\w$None "
+    PreGitPS1+="${Blu}\w${None} "
   else # No colour
     # Sets prompt like: user@box:~/dir/file
     unset GIT_PS1_SHOWCOLORHINTS
@@ -61,41 +61,41 @@ __set_bash_prompt()
   # Now build the part after git's status
 
   # Highlight non-standard exit codes
-  if [[ $exit != 0 ]]; then
-    PostGitPS1=" $Red[$exit]$None"
+  if [[ ${exit} != 0 ]]; then
+    PostGitPS1=" ${Red}[${exit}]${None}"
   fi
 
   # Indicate the are background jobs
   local BackgroundJobs=$(jobs -r | wc -l)
-  if [[ $BackgroundJobs -gt 2 ]]; then
-    PostGitPS1+=" ${BRed}&:$BackgroundJobs$None"
-  elif [[ $BackgroundJobs != 0 ]]; then
-    PostGitPS1+=" ${BGre}&:$BackgroundJobs$None"
+  if [[ ${BackgroundJobs} -gt 2 ]]; then
+    PostGitPS1+=" ${BRed}&:${BackgroundJobs}${None}"
+  elif [[ ${BackgroundJobs} != 0 ]]; then
+    PostGitPS1+=" ${BGre}&:${BackgroundJobs}${None}"
   fi
 
   # Indicate there are stopped jobs
   local StoppedJobs=$(jobs -s | wc -l)
-  if [[ $StoppedJobs -gt 2 ]]; then
-    PostGitPS1+=" ${BRed}x:$StoppedJobs$None"
-  elif [[ $StoppedJobs != 0 ]]; then
-    PostGitPS1+=" ${BGre}x:$StoppedJobs$None"
+  if [[ ${StoppedJobs} -gt 2 ]]; then
+    PostGitPS1+=" ${BRed}x:${StoppedJobs}${None}"
+  elif [[ ${StoppedJobs} != 0 ]]; then
+    PostGitPS1+=" ${BGre}x:${StoppedJobs}${None}"
   fi
 
   # Show number of detached tmux and screen sessions
   local DetachedSessions=$(( $(screen -ls 2> /dev/null | /bin/grep -c -i detach) + $(tmux ls 2>/dev/null | /bin/grep -c -i -v attach) ))
-  if [[ $DetachedSessions != 0 ]]; then
-    PostGitPS1+=" $Yel[$DetachedSessions]$None"
+  if [[ ${DetachedSessions} != 0 ]]; then
+    PostGitPS1+=" ${Yel}[${DetachedSessions}]${None}"
   fi
 
   # Change colour of prompt if root
   if [[ ${EUID} == 0 ]]; then
-    PostGitPS1+="\n""$BRed"'\$ '"$None"
+    PostGitPS1+="\n""${BRed}"'\$ '"${None}"
   else
-    PostGitPS1+="\n""$Mag"'\$ '"$None"
+    PostGitPS1+="\n""${Mag}"'\$ '"${None}"
   fi
 
   # Set PS1 from $PreGitPS1 + <git-status> + $PostGitPS1
-  __git_ps1 "$PreGitPS1" "$PostGitPS1" '(%s)'
+  __git_ps1 "${PreGitPS1}" "${PostGitPS1}" '(%s)'
 
   # echo '$PS1='"$PS1" # debug    
   # defaut Linux Mint 17.2 user prompt:
