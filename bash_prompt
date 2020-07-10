@@ -68,17 +68,17 @@ __set_bash_prompt()
   # Indicate the are background jobs
   local BackgroundJobs=$(jobs -r | wc -l)
   if [[ $BackgroundJobs -gt 2 ]]; then
-    PostGitPS1+=" $BRed[$BackgroundJobs]"
+    PostGitPS1+=" $BRed[&:$BackgroundJobs]"
   elif [[ $BackgroundJobs != 0 ]]; then
-    PostGitPS1+=" $BGre[$BackgroundJobs]"
+    PostGitPS1+=" $BGre[&:$BackgroundJobs]"
   fi
 
   # Indicate there are stopped jobs
   local StoppedJobs=$(jobs -s | wc -l)
   if [[ $StoppedJobs -gt 2 ]]; then
-    PostGitPS1+=" $BRed[$StoppedJobs]"
+    PostGitPS1+=" $BRed[x:$StoppedJobs]"
   elif [[ $StoppedJobs != 0 ]]; then
-    PostGitPS1+=" $BGre[$StoppedJobs]"
+    PostGitPS1+=" $BGre[x:$StoppedJobs]"
   fi
 
   # Show number of detached tmux and screen sessions
