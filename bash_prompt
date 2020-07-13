@@ -95,7 +95,11 @@ __set_bash_prompt()
   fi
 
   # Set PS1 from $PreGitPS1 + <git-status> + $PostGitPS1
-  __git_ps1 "${PreGitPS1}" "${PostGitPS1}" '(%s)'
+  if [[ $(command -v __git_ps1) ]]; then
+    __git_ps1 "${PreGitPS1}" "${PostGitPS1}" '(%s)'
+  else
+    PS1="${PreGitPS1}${PostGitPS1}"
+  fi
 
   # echo '$PS1='"$PS1" # debug
   # defaut Linux Mint 17.2 user prompt:
