@@ -8,6 +8,16 @@
 # Source global definitions
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
+elif [ -f /etc/bash.bashrc ]; then
+  . /etc/bash.bashrc
+fi
+
+if [ -f /etc/profile ]; then
+  . /etc/bashrc
+fi
+
+if [ -f /etc/bash_completion ]; then
+  . /etc/bashrc
 fi
 
 # File-creation mode mask.  No core dumps.
@@ -99,13 +109,6 @@ fi
 
 if [ -f ~/.home_aliases ]; then
   . ~/.home_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ]; then
-  . /etc/bash_completion
 fi
 
 # Search for an existing ssh agent, connect to the first one we find
