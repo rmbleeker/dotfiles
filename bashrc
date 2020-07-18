@@ -13,11 +13,11 @@ elif [ -f /etc/bash.bashrc ]; then
 fi
 
 if [ -f /etc/profile ]; then
-  . /etc/bashrc
+  . /etc/profile
 fi
 
 if [ -f /etc/bash_completion ]; then
-  . /etc/bashrc
+  . /etc/bash_completion
 fi
 
 # File-creation mode mask.  No core dumps.
