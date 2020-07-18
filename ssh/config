@@ -4,7 +4,7 @@ ServerAliveInterval 20
 VerifyHostKeyDNS yes
 
 ControlMaster auto
-ControlPath ~/.ssh/%r@%n:%p
+ControlPath ~/.ssh/%r@%h:%p
 ControlPersist 4h
 
 Include hosts
