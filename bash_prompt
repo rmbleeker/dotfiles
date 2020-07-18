@@ -35,6 +35,7 @@ __set_bash_prompt()
 
     # Wrap the colour codes between \[ and \], so that
     # bash counts the correct number of characters for line wrapping:
+    local Bla='\[\e[0;30m\]'; local Gray='\[\e[1;30m\]'
     local Red='\[\e[0;31m\]'; local BRed='\[\e[1;31m\]'
     local Gre='\[\e[0;32m\]'; local BGre='\[\e[1;32m\]'
     local Yel='\[\e[0;33m\]'; local BYel='\[\e[1;33m\]'
@@ -96,7 +97,7 @@ __set_bash_prompt()
 
   # Set PS1 from $PreGitPS1 + <git-status> + $PostGitPS1
   if [[ $(command -v __git_ps1) ]]; then
-    __git_ps1 "${PreGitPS1}" "${PostGitPS1}" '(%s)'
+    __git_ps1 "${PreGitPS1}" "${PostGitPS1}" "${Cya}(${None}%s${Cya})${None}"
   else
     PS1="${PreGitPS1}${PostGitPS1}"
   fi
