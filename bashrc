@@ -12,10 +12,7 @@ elif [ -f /etc/bash.bashrc ]; then
   . /etc/bash.bashrc
 fi
 
-if [ -f /etc/profile ]; then
-  . /etc/profile
-fi
-
+# Enable tab completion in shell
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
