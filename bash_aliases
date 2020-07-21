@@ -36,6 +36,15 @@ alias shutdown='sudo shutdown -P now'
 
 # "alias" functions
 
+sshkill() {
+  for socket in $(find ~/.ssh -type s); do
+    socket=${socket##*/}  ## strip path
+    socket=${socket%:*}   ## strip port number
+    echo -n "${socket}: "
+    ssh -O exit "${socket}"
+  done
+}
+
 vnstat() {
   if [[ $@ == "-a" ]]; then
     command vnstat; vnstat --top10
