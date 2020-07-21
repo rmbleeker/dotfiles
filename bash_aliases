@@ -74,4 +74,3 @@ whatismy() {
   fi
 }
 
-[ -f /usr/local/gogo/gogo.sh ] && . /usr/local/gogo/gogo.sh
