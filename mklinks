@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ x${1} =~ ^(x--force|xforce|x-f)$ ]]; then
+  set -- "--force"
+else
+  set --
+fi
+
 dotfile_dir=${HOME}/dotfiles
 exclude_list=("LICENSE" "mklinks" "README.md")
 
@@ -15,10 +21,11 @@ for item in "${exclude_list[@]}"; do
 done
 
 for dir in "${directories[@]}"; do
-  mkdir --verbose --parents ${HOME}/.${dir} 2> /dev/null
+  mkdir --verbose --parents ${HOME}/.${dir}
 done
 
 for file in "${files[@]}"; do
-  ln --verbose --force --relative --symbolic "${dotfile_dir}/${file}" "${HOME}/.${file}" 2> /dev/null
+  ln --verbose ${1} --relative --symbolic "${dotfile_dir}/${file}" "${HOME}/.${file}" 2> /dev/null
 done
 
+exit 0
