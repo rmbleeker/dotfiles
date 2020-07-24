@@ -45,7 +45,7 @@ sshkill() {
 }
 
 rr() {
-  case $(grep -w NAME /etc/os-release | cut -d'=' -f2) in
+  case $(grep -w NAME /etc/os-release | cut -d'=' -f2 | tr -d '"') in
     Ubuntu|Debian)
       [ -f /run/reboot-required ] && echo "The following packages require a system restart:" && cat /run/reboot-required.pkgs || echo "No reboot required"
       ;;
