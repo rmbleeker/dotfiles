@@ -45,9 +45,12 @@ sshkill() {
 }
 
 rr() {
-  case $(grep -w NAME /etc/os-release | cut -d'=' -f2 | tr -d '"') in
-    Ubuntu|Debian)
+  case $(grep -w ID /etc/os-release | cut -d'=' -f2 | tr -d '"') in
+    ubuntu|debian)
       [ -f /run/reboot-required ] && echo "The following packages require a system restart:" && cat /run/reboot-required.pkgs || echo "No reboot required"
+      ;;
+    rhel|centos)
+      [ -x /usr/bin/needs-restarting ] && /usr/bin/needs-restarting -r || echo "command '/usr/bin/needs-restarting' not available"
       ;;
     *)
       echo "Unknown distribution, no idea how to check if a reboot of the system is required"
