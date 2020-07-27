@@ -19,7 +19,6 @@ alias fgrep='fgrep --color=auto'
 alias less='less --tabs=4'
 alias lsusers='getent passwd | tr ":" " " | awk "\$3 >= $(grep UID_MIN /etc/login.defs | cut -d " " -f 2) { print \$1 }"'
 #alias reboot-win='sudo grub-reboot "Windows 7 (loader) (on /dev/sda1)"'
-alias rr='[ -f /run/reboot-required ] && echo "The following packages require a system restart:" && cat /run/reboot-required.pkgs || echo "No reboot required"'
 #alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias whatismyip='whatismy ip'
 alias killdiscord='killall Discord;killall Discord'
@@ -43,6 +42,17 @@ sshkill() {
     echo -n "${socket}: "
     ssh -O exit "${socket}"
   done
+}
+
+rr() {
+  case $(grep -w NAME /etc/os-release | cut -d'=' -f2 | tr -d '"') in
+    Ubuntu|Debian)
+      [ -f /run/reboot-required ] && echo "The following packages require a system restart:" && cat /run/reboot-required.pkgs || echo "No reboot required"
+      ;;
+    *)
+      echo "Unknown distribution, no idea how to check if a reboot of the system is required"
+      ;;
+  esac
 }
 
 vnstat() {
