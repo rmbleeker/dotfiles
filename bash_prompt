@@ -52,7 +52,7 @@ __set_bash_prompt()
       PreGitPS1+="${Yel}\u${None}@${Yel}\h${None}:"
     fi
 
-    PreGitPS1+="${Cya}\w${None} "
+    PreGitPS1+="${BBlu}\w${None} "
   else # No colour
     # Sets prompt like: user@box:~/dir/file
     unset GIT_PS1_SHOWCOLORHINTS
@@ -97,7 +97,7 @@ __set_bash_prompt()
 
   # Set PS1 from $PreGitPS1 + <git-status> + $PostGitPS1
   if [[ $(command -v __git_ps1) ]]; then
-    __git_ps1 "${PreGitPS1}" "${PostGitPS1}" "${BBlu}(${None}%s${BBlu})${None}"
+    __git_ps1 "${PreGitPS1}" "${PostGitPS1}" "${Cya}(${None}%s${Cya})${None}"
   else
     PS1="${PreGitPS1}${PostGitPS1}"
   fi
