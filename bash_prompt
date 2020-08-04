@@ -52,7 +52,7 @@ __set_bash_prompt()
       PreGitPS1+="${Yel}\u${None}@${Yel}\h${None}:"
     fi
 
-    PreGitPS1+="${BBlu}\w${None} "
+    PreGitPS1+="${Blu}\w${None} "
   else # No colour
     # Sets prompt like: user@box:~/dir/file
     unset GIT_PS1_SHOWCOLORHINTS
