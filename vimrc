@@ -22,6 +22,7 @@ hi User4 ctermfg=darkgreen ctermbg=black
 hi User5 ctermfg=blue      ctermbg=black
 hi User6 ctermfg=yellow    ctermbg=black
 
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 au BufNewFile,BufRead *.{yaml,yml} set filetype=yaml     "foldmethod=indent
 au BufNewFile,BufRead *.md         set filetype=markdown
 au FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
