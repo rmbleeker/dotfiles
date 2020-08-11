@@ -1,7 +1,8 @@
 set fileformat=unix
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab autoindent
 set laststatus=2 title
-set number ruler
+set number "relativenumber numberwidth=6
+set ruler cursorline
 set list listchars=eol:«,tab:»·,nbsp:·,trail:·,extends:►,precedes:◄
 
 set statusline  =%1*\ %n\ %*              "buffer number
@@ -15,15 +16,18 @@ set statusline +=%1*%10(col:\ %3v%)%*     "virtual column number
 set statusline +=%2*%4(/%c%)%*            "actual column number
 set statusline +=%6*%10(0x%04B%)\ %*      "character under cursor
 
-hi User1 ctermfg=red       ctermbg=black
-hi User2 ctermfg=darkred   ctermbg=black
-hi User3 ctermfg=magenta   ctermbg=black
-hi User4 ctermfg=darkgreen ctermbg=black
-hi User5 ctermfg=blue      ctermbg=black
-hi User6 ctermfg=yellow    ctermbg=black
+highlight CursorLine   cterm=NONE
+highlight CursorLineNr cterm=NONE ctermbg=black ctermfg=red
 
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-au BufNewFile,BufRead *.{yaml,yml} set filetype=yaml     "foldmethod=indent
-au BufNewFile,BufRead *.md         set filetype=markdown
-au FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+highlight User1 ctermfg=red       ctermbg=black
+highlight User2 ctermfg=darkred   ctermbg=black
+highlight User3 ctermfg=magenta   ctermbg=black
+highlight User4 ctermfg=darkgreen ctermbg=black
+highlight User5 ctermfg=blue      ctermbg=black
+highlight User6 ctermfg=yellow    ctermbg=black
+
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+autocmd BufNewFile,BufRead *.{yaml,yml} set filetype=yaml     "foldmethod=indent
+autocmd BufNewFile,BufRead *.md         set filetype=markdown
+autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
