@@ -4,6 +4,7 @@ set laststatus=2 title
 set number "relativenumber numberwidth=6
 set ruler cursorline
 set list listchars=eol:«,tab:»·,nbsp:·,trail:·,extends:►,precedes:◄
+set showcmd showmatch
 
 set statusline  =%1*\ %n\ %*              "buffer number
 set statusline +=%5*%{&ff}\ %*            "file format
