@@ -18,7 +18,7 @@ set statusline +=%2*%4(/%c%)%*            "actual column number
 set statusline +=%6*%10(0x%04B%)\ %*      "character under cursor
 
 highlight CursorLine   cterm=NONE
-highlight CursorLineNr cterm=NONE ctermbg=black ctermfg=red
+highlight CursorLineNr cterm=NONE ctermbg=black ctermfg=yellow
 
 highlight User1 ctermfg=red       ctermbg=black
 highlight User2 ctermfg=darkred   ctermbg=black
