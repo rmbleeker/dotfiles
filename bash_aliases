@@ -50,7 +50,7 @@ update() {
       sudo apt update && sudo apt -y upgrade
       ;;
     rhel|centos)
-      echo "insert update command here"
+      sudo yum -y update
       ;;
     *)
       echo "Unknown distribution, no idea how to update the system"
