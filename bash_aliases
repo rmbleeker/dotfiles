@@ -44,6 +44,20 @@ sshkill() {
   done
 }
 
+update() {
+  case $(grep -w ID /etc/os-release | cut -d'=' -f2 | tr -d '"') in
+    ubuntu|debian)
+      sudo apt update && sudo apt -y upgrade
+      ;;
+    rhel|centos)
+      sudo yum -y update
+      ;;
+    *)
+      echo "Unknown distribution, no idea how to update the system"
+      ;;
+  esac
+}
+
 rr() {
   case $(grep -w ID /etc/os-release | cut -d'=' -f2 | tr -d '"') in
     ubuntu|debian)
