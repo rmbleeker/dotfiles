@@ -106,9 +106,9 @@ then
   export SSH_AUTH_SOCK=$(__get_agent_socket)
   echo -e "${BOLD}Agent pid ${SSH_AGENT_PID} (reconnected)${NORM}"
 else
-  echo -e "${BOLD}"
+  echo -ne "${BOLD}"
   eval $(ssh-agent -s)
-  echo -e "${NORM}"
+  echo -ne "${NORM}"
 fi
 
 # set proxy if necessary
