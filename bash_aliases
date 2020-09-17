@@ -81,13 +81,17 @@ vnstat() {
 }
 
 ipinfo() {
-  if [ $# -eq 0 ]; then
-    curl -q https://ipinfo.io/
-  elif [ $1 == "usage" ] || [ $1 == "-h" ]; then
-    echo -e "${BOLD}Usage:${NORM}   ipinfo [ip_address] [response_filter]\n${BOLD}Example:${NORM} ipinfo 123.45.67.89 loc\n${BOLD}Filters:${NORM} ip,city,region,country,loc,postal,org"
-  else
-    curl -q https://ipinfo.io/$1/$2
-  fi
+  case $# in
+    0)
+      curl -q https://ipinfo.io/
+      ;;
+    2)
+      curl -q https://ipinfo.io/$1/$2
+      ;;
+    *)
+      echo -e "${BOLD}Usage:${NORM}   ipinfo [ip_address] [response_filter]\n${BOLD}Example:${NORM} ipinfo 123.45.67.89 loc\n${BOLD}Filters:${NORM} ip,city,region,country,loc,postal,org"
+      ;;
+  esac
 }
 
 httpbin() {
