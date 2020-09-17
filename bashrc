@@ -104,9 +104,11 @@ if [[ $(__get_agent_pid) -gt 1 ]] && [[ $(__get_agent_pid) -le $(< /proc/sys/ker
 then
   export SSH_AGENT_PID=$(__get_agent_pid)
   export SSH_AUTH_SOCK=$(__get_agent_socket)
-  echo "Agent pid ${SSH_AGENT_PID} (reconnected)"
+  echo -e "${BOLD}Agent pid ${SSH_AGENT_PID} (reconnected)${NORM}"
 else
+  echo -e "${BOLD}"
   eval $(ssh-agent -s)
+  echo -e "${NORM}"
 fi
 
 # set proxy if necessary
