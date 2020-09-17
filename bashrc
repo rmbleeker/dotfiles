@@ -92,18 +92,18 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Search for an existing ssh agent, connect to the first one we find
-get_agent_pid() {
+__get_agent_pid() {
   pgrep --uid ${USER} ssh-agent | head -n1
 }
 
-get_agent_socket() {
+__get_agent_socket() {
   find /tmp/ssh-* -type s -user ${USER} -name "agent.*" 2> /dev/null
 }
 
-if [[ $(get_agent_pid) -gt 1 ]] && [[ $(get_agent_pid) -le $(< /proc/sys/kernel/pid_max) ]] && [[ -S $(get_agent_socket) ]]
+if [[ $(__get_agent_pid) -gt 1 ]] && [[ $(__get_agent_pid) -le $(< /proc/sys/kernel/pid_max) ]] && [[ -S $(__get_agent_socket) ]]
 then
-  export SSH_AGENT_PID=$(get_agent_pid)
-  export SSH_AUTH_SOCK=$(get_agent_socket)
+  export SSH_AGENT_PID=$(__get_agent_pid)
+  export SSH_AUTH_SOCK=$(__get_agent_socket)
   echo "Agent pid ${SSH_AGENT_PID} (reconnected)"
 else
   eval $(ssh-agent -s)
