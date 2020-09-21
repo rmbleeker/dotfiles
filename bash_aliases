@@ -96,7 +96,7 @@ ipinfo() {
 
 httpbin() {
   if [ $# -eq 0 ]; then
-    echo -e "Query for ${BOLD}ip${NORM}, ${BOLD}user-agent${NORM}, ${BOLD}uuid4${NORM} or ${BOLD}headers${NORM}, amongst\nother things. See ${BOLD}https://httpbin.org/${NORM} for more information."
+    echo -e "Query for ${BOLD}ip${NORM}, ${BOLD}user-agent${NORM}, ${BOLD}uuid${NORM} or ${BOLD}headers${NORM}, amongst\nother things. See ${BOLD}https://httpbin.org/${NORM} for more information."
   else
     for i in $@; do
       curl -q https://httpbin.org/$i
