@@ -56,7 +56,7 @@ __set_bash_prompt()
   else # No colour
     # Sets prompt like: user@box:~/dir/file
     unset GIT_PS1_SHOWCOLORHINTS
-    PreGitPS1="${debian_chroot:+($debian_chroot)}\u@\h:\w"
+    PreGitPS1+="${debian_chroot:+($debian_chroot)}\u@\h:\w "
   fi
 
   # Now build the part after git's status

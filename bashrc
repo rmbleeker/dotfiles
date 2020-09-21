@@ -47,33 +47,13 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
   debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# check for likely color support of the terminal
-case "$TERM" in
-  xterm-*color) color_prompt=yes;;
-esac
+# Define some colors to use
+BOLD="\033[1m"
+NORM="\033[0m"
 
-if [ -n "$color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # We have color support; assume it's compliant with Ecma-48
-    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-    # a case would tend to support setf rather than setaf.)
-    color_prompt=yes
-    # Define some colors to use
-    BOLD="\033[1m"
-    NORM="\033[0m"
-  else
-    color_prompt=
-  fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-  if [ -f ~/.bash_prompt ]; then
-    . ~/.bash_prompt
-  else
-#   PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[00;32m\]\u\[\033[00m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[00m\]\w \[\033[01;34m\]> \[\033[00m\]'
-  fi
-  PS2=':-( '
+# A more elaborate prompt deserves its own file, otherwise a simple prompt will do
+if [ -f ~/.bash_prompt ]; then
+  . ~/.bash_prompt
 else
   PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
   PS2=':-( '
@@ -83,8 +63,6 @@ fi
 if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
   eval "`dircolors -b`"
 fi
-
-unset color_prompt
 
 # Alias definitions are done in a separate file
 if [ -f ~/.bash_aliases ]; then
@@ -100,8 +78,9 @@ __get_agent_socket() {
   find /tmp/ssh-* -type s -user ${USER} -name "agent.*" 2> /dev/null
 }
 
-if [[ $(__get_agent_pid) -gt 1 ]] && [[ $(__get_agent_pid) -le $(< /proc/sys/kernel/pid_max) ]] && [[ -S $(__get_agent_socket) ]]
-then
+if [[ $(__get_agent_pid) -gt 1 ]] &&\
+   [[ $(__get_agent_pid) -le $(< /proc/sys/kernel/pid_max) ]] &&\
+   [[ -S $(__get_agent_socket) ]]; then
   export SSH_AGENT_PID=$(__get_agent_pid)
   export SSH_AUTH_SOCK=$(__get_agent_socket)
   echo -e "${BOLD}Agent pid ${SSH_AGENT_PID} (reconnected)${NORM}"

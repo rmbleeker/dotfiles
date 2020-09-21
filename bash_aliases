@@ -96,9 +96,9 @@ ipinfo() {
 
 httpbin() {
   if [ $# -eq 0 ]; then
-    echo -e "Query for ${BOLD}ip${NORM}, ${BOLD}user-agent${NORM}, ${BOLD}uuid4${NORM} or ${BOLD}headers${NORM}, amongst\nother things. See ${BOLD}https://httpbin.org/${NORM} for more information."
+    echo -e "Query for ${BOLD}ip${NORM}, ${BOLD}user-agent${NORM}, ${BOLD}uuid${NORM} or ${BOLD}headers${NORM}, amongst\nother things. See ${BOLD}https://httpbin.org/${NORM} for more information."
   else
-    for i in $@; do
+    for i in "$@"; do
       curl -q https://httpbin.org/$i
     done
   fi
@@ -108,7 +108,7 @@ whatismy() {
   if [ $# -eq 0 ]; then
     echo -e "Query for ${BOLD}ip${NORM}, ${BOLD}host${NORM}, ${BOLD}country_code${NORM}, ${BOLD}ua${NORM}, ${BOLD}referer${NORM},\n ${BOLD}port${NORM}, ${BOLD}lang${NORM}, ${BOLD}encoding${NORM}, ${BOLD}mime${NORM}, ${BOLD}forwarded${NORM} or ${BOLD}all${NORM}.\nSee ${BOLD}https://ifconfig.io/${NORM} for more information."
   else
-    for i in $@; do
+    for i in "$@"; do
       curl -q https://ifconfig.io/$i
     done
   fi
