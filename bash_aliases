@@ -85,7 +85,7 @@ ipinfo() {
     0)
       curl -q https://ipinfo.io/
       ;;
-    2)
+    1|2)
       curl -q https://ipinfo.io/$1/$2
       ;;
     *)
