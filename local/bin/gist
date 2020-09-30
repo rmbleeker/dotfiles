@@ -1,3 +1,6 @@
+#!/bin/bash
+## taken from https://gist.github.com/s-leroux/7cb7424d33ba3753e907cc2553bcd1ba
+
 # 0. Your file name
 FNAME=some.file
 
