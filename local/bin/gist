@@ -1,37 +1,109 @@
 #!/bin/bash
-## taken from https://gist.github.com/s-leroux/7cb7424d33ba3753e907cc2553bcd1ba
+# based on: https://gist.github.com/s-leroux/7cb7424d33ba3753e907cc2553bcd1ba
+# modified by: cca
+set -u -o pipefail
+set_dir(){ _dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"; }; set_dir
+safe_source () { source $1; set_dir; }
+# end of bash boilerplate
 
-if [ $# -eq 0 ]; then
-  echo -e "usage: ${0} file [curl_options]
-  curl_options can for example be \"-u github_user[:github_token]\""
-  exit 1
-fi
+config_file=~/.create-gist.cfg
+
+print_usage(){
+  cat << USAGE
+
+    usage:
+
+        $(basename $0) /path/to/file your_token
+
+        or
+
+        lsusb | $(basename $0) your_token
+
+    If no token is passed and $config_file is found,
+    contents of config file is used as the token, so
+    the usage becomes:
+
+        lsusb | $(basename $0)
+
+        or
+
+        $(basename $0) /path/to/file
+
+USAGE
+}
 
 # 0. Your file name
-FNAME="${1}"
+FNAME="${1:-}"
+if [[ -f "$FNAME" ]]; then
+  CONTENT=$(cat "$FNAME")
+  TOKEN="${2:-}"
+else
+  CONTENT=$(timeout 2 cat -)
+  TOKEN="${1-}"
+  FNAME="stdin"
+  if [[ "$CONTENT" == "" ]]; then
+    echo "ERROR: Content is empty"
+    echo
+    print_usage
+    exit 2
+  fi
+fi
 
-# 1. Somehow sanitize the file content
-#    Remove \r (from Windows end-of-lines),
-#    Replace tabs by \t
-#    Replace " by \"
-#    Replace EOL by \n
-CONTENT=$(sed -e 's/\r//' -e's/\t/\\t/g' -e 's/"/\\"/g' "${FNAME}" | awk '{gsub("%","%%",$0);print $0}' | awk '{ printf($0 "\\n") }')
+if [[ -z $TOKEN ]] && [[ -f $config_file ]]; then
+  echo "Using $config_file for credentials"
+  TOKEN=$(cat $config_file)
+fi
 
-# 2. Build the JSON request
-read -r -d '' DESC <<EOF
+# Github does not permit anonymous uploads since April 2018
+if [[ -z $TOKEN ]]; then
+    echo "ERROR: Token is missing."
+    echo
+    print_usage
+    exit 2
+fi
+
+
+# 1. JSON-Stringify the file content:
+#    Replace \ with \\
+#    Remove \r (from Windows end-of-lines)
+#    Replace tabs with \t
+#    Replace " with \"
+#    Replace EOL with \n
+CONTENT=$(echo "${CONTENT}" | sed -e 's/\\/\\\\/g' -e 's/\r//' -e's/\t/\\t/g' -e 's/"/\\"/g' | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
+
+# 2. Get the description
+read -p "Give a description: " DESCRIPTION
+
+# 3. Build the JSON request
+tmp_file=$(mktemp)
+cat > $tmp_file  <<EOF
 {
-  "description": "some description",
+  "description": "$DESCRIPTION",
   "public": true,
   "files": {
-    "${FNAME}": {
+    "$(basename $FNAME)": {
       "content": "${CONTENT}"
     }
   }
 }
 EOF
 
-# 3.1 Use curl to send a POST request
-curl -X POST -d "${DESC}" "https://api.github.com/gists"
+# 4. Use curl to make a POST request
+OUTPUT=$(curl -H "Authorization: token ${TOKEN}" \
+    -X POST -d @$tmp_file "https://api.github.com/gists")
 
-## 3.2 Use basic authentication (password is deprecated, API token works)
-#curl -u "${GITHUB_USERNAME}" -X POST -d "${DESC}" "https://api.github.com/gists"
+uploaded_url=$(echo "$OUTPUT" | grep 'html_url' | grep 'gist')
+
+# 5. cleanup the tmp file
+rm $tmp_file
+
+# 6. Show the output
+if [[ ! -z ${uploaded_url:-} ]]; then
+  echo "URL: "
+  echo "-----------------"
+  echo $uploaded_url
+else
+  echo "----- ERROR -----"
+  echo "$OUTPUT"
+  echo "----- ERROR -----"
+fi
