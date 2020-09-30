@@ -15,7 +15,7 @@ FNAME="${1}"
 #    Replace tabs by \t
 #    Replace " by \"
 #    Replace EOL by \n
-CONTENT=$(sed -e 's/\r//' -e's/\t/\\t/g' -e 's/"/\\"/g' "${FNAME}" | awk '{ printf($0 "\\n") }')
+CONTENT=$(sed -e 's/\r//' -e's/\t/\\t/g' -e 's/"/\\"/g' "${FNAME}" | awk '{gsub("%","%%",$0);print $0}' | awk '{ printf($0 "\\n") }')
 
 # 2. Build the JSON request
 read -r -d '' DESC <<EOF
