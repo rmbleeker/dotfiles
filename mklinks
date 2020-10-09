@@ -12,7 +12,7 @@ exclude_list=("LICENSE" "mklinks" "README.md")
 chmod --recursive --silent go= ${dotfile_dir}
 
 cd ${dotfile_dir} &&\
-  files=($(find * -type f)) &&\
+  files=($(find * -type 'f,l')) &&\
   directories=($(find * -type d)) ||\
   exit 1
 
