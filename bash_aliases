@@ -60,7 +60,7 @@ update() {
 
 rr() {
   case $(grep -w ID /etc/os-release | cut -d'=' -f2 | tr -d '"') in
-    ubuntu|debian)
+    pop|ubuntu|debian)
       [ -f /run/reboot-required ] && echo "The following packages require a system restart:" && cat /run/reboot-required.pkgs || echo "No reboot required"
       ;;
     rhel|centos)
