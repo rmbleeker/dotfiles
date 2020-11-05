@@ -90,7 +90,7 @@ __set_bash_prompt()
 
   # Change colour of prompt if root
   if [[ ${EUID} == 0 ]]; then
-    PostGitPS1+="\n""${BRed}""\$""${None} "
+    PostGitPS1+="\n""${BRed}""\#""${None} "
   else
     PostGitPS1+="\n""${Mag}""\$""${None} "
   fi
