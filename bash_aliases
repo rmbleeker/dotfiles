@@ -81,10 +81,11 @@ vnstat() {
 }
 
 ipinfo() {
-  if [[ "${1}" == help ]] || [[ "${1}" == usage ]] || [[ $# -gt 2 ]]; then
+  if [[ "${1}" == *help ]] || [[ "${1}" == *usage ]] || [[ $# -gt 2 ]]; then
     echo -e "${BOLD}Usage:${NORM}   ipinfo [ip_address] [response_filter]\n${BOLD}Example:${NORM} ipinfo 123.45.67.89 loc\n${BOLD}Filters:${NORM} ip,hostname,city,region,country,loc,org,postal,timezone"
   else
-    curl -q https://ipinfo.io/$(echo $@ | tr ' ' '/')
+    local IFS='/'"${IFS}"
+    curl -q https://ipinfo.io/"${*}"
   fi
 }
 
