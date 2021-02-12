@@ -37,7 +37,7 @@ alias shutdown='sudo shutdown -P now'
 lsusers() {
   local UID_MIN="$(grep -w UID_MIN /etc/login.defs | awk '{ print $2 }')"
   local UID_MAX="$(grep -w UID_MAX /etc/login.defs | awk '{ print $2 }')"
-  getent passwd | tr ':' ' ' | awk "\$3 >= ${UID_MIN} && \$3 <= ${UID_MAX} { print \$1 }"
+  getent passwd | tr ':' ' ' | awk "\$3 >= ${UID_MIN} && \$3 <= ${UID_MAX} { print \$1,\$3 }"
 }
 
 sshkill() {
