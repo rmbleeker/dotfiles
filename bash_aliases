@@ -17,7 +17,6 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias less='less --tabs=4'
-alias lsusers='getent passwd | tr ":" " " | awk "\$3 >= $(grep UID_MIN /etc/login.defs | cut -d " " -f 2) { print \$1 }"'
 #alias reboot-win='sudo grub-reboot "Windows 7 (loader) (on /dev/sda1)"'
 #alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias whatismyip='whatismy ip'
@@ -34,6 +33,12 @@ alias iotop='sudo iotop'
 alias shutdown='sudo shutdown -P now'
 
 # "alias" functions
+
+lsusers() {
+  local UID_MIN="$(grep -w UID_MIN /etc/login.defs | awk '{ print $2 }')"
+  local UID_MAX="$(grep -w UID_MAX /etc/login.defs | awk '{ print $2 }')"
+  getent passwd | tr ':' ' ' | awk "\$3 >= ${UID_MIN} && \$3 <= ${UID_MAX} { print \$1 }"
+}
 
 sshkill() {
   for socket in $(find ~/.ssh -type s); do
