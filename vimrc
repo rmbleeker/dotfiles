@@ -2,7 +2,7 @@ set fileformat=unix
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab autoindent
 set laststatus=2 title
 set number "relativenumber numberwidth=6
-set ruler cursorline
+set ruler cursorline hlsearch
 set list listchars=eol:«,tab:»·,nbsp:·,trail:·,extends:►,precedes:◄
 set showcmd showmatch
 
