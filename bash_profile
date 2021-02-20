@@ -29,5 +29,6 @@ if [ -d "$HOME/.local/bin" ] ; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 
+echo -n 'dotfiles.git: '
 git -C ~/dotfiles pull
 
