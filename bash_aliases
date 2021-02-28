@@ -52,7 +52,7 @@ sshkill() {
 update() {
   case $(grep -w ID /etc/os-release | cut -d'=' -f2 | tr -d '"') in
     pop|ubuntu|debian)
-      sudo apt update && sudo apt -y upgrade
+      sudo apt update && sudo apt -y full-upgrade
       ;;
     rhel|centos)
       sudo yum -y update
