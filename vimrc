@@ -15,7 +15,7 @@ function! StatuslineGit()
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
-set statusline  =%1*\ %n\ %*                "buffer number
+set statusline  =%6*\ %n\ %*                "buffer number
 set statusline +=%5*%{&fileformat}\ %*      "file format
 set statusline +=%5*(%{&fileencoding?&fileencoding:&encoding})\ %*  "file encoding
 set statusline +=%3*%(%y\ %)%*              "file type
