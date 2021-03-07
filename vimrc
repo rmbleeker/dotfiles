@@ -27,7 +27,8 @@ highlight User4 ctermfg=darkgreen ctermbg=black
 highlight User5 ctermfg=blue      ctermbg=black
 highlight User6 ctermfg=yellow    ctermbg=black
 
-"nnoremap <esc> :noh<return><esc>
+nnoremap <esc> :nohlsearch<return><esc>
+nnoremap <esc>^[ <esc>^[
 
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd BufNewFile,BufRead *.{yaml,yml} set filetype=yaml     "foldmethod=indent
