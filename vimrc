@@ -17,6 +17,7 @@ endfunction
 
 set statusline  =%1*\ %n\ %*                "buffer number
 set statusline +=%5*%{&fileformat}\ %*      "file format
+set statusline +=%5*(%{&fileencoding?&fileencoding:&encoding})\ %*  "file encoding
 set statusline +=%3*%(%y\ %)%*              "file type
 set statusline +=%4*%<%F\ %*                "full path
 set statusline +=%2*%m%r%*                  "modified and read-only flag
