@@ -6,16 +6,16 @@ set ruler cursorline hlsearch nowrap
 set list listchars=eol:«,tab:»·,nbsp:·,trail:·,extends:►,precedes:◄
 set showcmd showmatch
 
-set statusline  =%1*\ %n\ %*              "buffer number
-set statusline +=%5*%{&ff}\ %*            "file format
-set statusline +=%3*%(%y\ %)%*            "file type
-set statusline +=%4*%<%F\ %*              "full path
-set statusline +=%2*%m%r%*                "modified and read-only flag
-set statusline +=%1*%=%10(line:\ %3l%)%*  "current line
-set statusline +=%2*%4(/%L%)%*            "total lines
-set statusline +=%1*%10(col:\ %3v%)%*     "virtual column number
-set statusline +=%2*%4(/%c%)%*            "actual column number
-set statusline +=%6*%10(0x%04B%)\ %*      "character under cursor
+set statusline  =%1*\ %n\ %*                "buffer number
+set statusline +=%5*%{&ff}\ %*              "file format
+set statusline +=%3*%(%y\ %)%*              "file type
+set statusline +=%4*%<%F\ %*                "full path
+set statusline +=%2*%m%r%*                  "modified and read-only flag
+set statusline +=%1*%=%11(line:\ %3l\ /%)%* "current line
+set statusline +=%2*%3(%L%)%*               "total lines
+set statusline +=%1*%13(col:\ %3v\ /%)%*    "virtual column number
+set statusline +=%2*%3(%c%)%*               "actual column number
+set statusline +=%6*%10(0x%04B%)\ %*        "character under cursor
 
 highlight CursorLine   cterm=NONE
 highlight CursorLineNr cterm=NONE ctermbg=black ctermfg=red
