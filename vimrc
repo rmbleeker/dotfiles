@@ -6,11 +6,21 @@ set ruler cursorline hlsearch nowrap
 set list listchars=eol:«,tab:»·,nbsp:·,trail:·,extends:►,precedes:◄
 set showcmd showmatch
 
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
 set statusline  =%1*\ %n\ %*                "buffer number
 set statusline +=%5*%{&ff}\ %*              "file format
 set statusline +=%3*%(%y\ %)%*              "file type
 set statusline +=%4*%<%F\ %*                "full path
 set statusline +=%2*%m%r%*                  "modified and read-only flag
+set statusline +=%1*%{StatuslineGit()}\ %*  "show git branch
 set statusline +=%1*%=%11(line:\ %3l\ /%)%* "current line
 set statusline +=%2*%3(%L%)%*               "total lines
 set statusline +=%1*%13(col:\ %3v\ /%)%*    "virtual column number
