@@ -1,6 +1,8 @@
 [user]
 	name = Ruud Bleeker
 	email = rbleeker@gmail.com
+[init]
+	defaultBranch = main
 [core]
 	editor = vim
 [credential]
