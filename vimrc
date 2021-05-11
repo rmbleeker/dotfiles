@@ -5,6 +5,7 @@ set number "relativenumber numberwidth=6
 set ruler cursorline hlsearch nowrap
 set list listchars=eol:«,tab:»·,nbsp:·,trail:·,extends:►,precedes:◄
 set showcmd showmatch
+set clipboard=unnamedplus
 
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
