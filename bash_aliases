@@ -42,10 +42,12 @@ lsusers() {
 
 sshkill() {
   for socket in $(find ~/.ssh -type s); do
-    socket=${socket##*/}  ## strip path
-    socket=${socket%:*}   ## strip port number
-    echo -n "${socket}: "
-    ssh -O exit "${socket}"
+    if [[ -S ${socket} ]]; then
+      socket=${socket##*/}  ## strip path
+      socket=${socket%:*}   ## strip port number
+      echo -n "${socket}: "
+      ssh -O exit "${socket}"
+    fi
   done
 }
 
