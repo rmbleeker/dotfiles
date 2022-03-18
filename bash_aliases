@@ -44,9 +44,10 @@ sshkill() {
   for socket in $(find ~/.ssh -type s); do
     if [[ -S ${socket} ]]; then
       socket=${socket##*/}  ## strip path
+      port=${socket##*:}    ## save port number
       socket=${socket%:*}   ## strip port number
-      echo -n "${socket}: "
-      ssh -O exit "${socket}"
+      echo -n "${socket} on port ${port}: "
+      ssh -O exit "${socket}" -p "${port}"
     fi
   done
 }
