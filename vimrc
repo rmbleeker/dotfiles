@@ -1,4 +1,4 @@
-set fileformat=unix
+set fileformat=unix encoding=utf-8
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab autoindent
 set laststatus=2 title
 set number "relativenumber numberwidth=6
