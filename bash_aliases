@@ -53,10 +53,10 @@ sshkill() {
 
 update() {
   case $(grep -w ID_LIKE /etc/os-release | cut -d'=' -f2 | tr -d '"') in
-    pop|ubuntu|debian)
+    *debian)
       sudo apt update && sudo apt -y full-upgrade
       ;;
-    rhel|centos|fedora)
+    *fedora)
       sudo yum -y update
       ;;
     *)
@@ -66,8 +66,8 @@ update() {
 }
 
 rr() {
-  case $(grep -w ID /etc/os-release | cut -d'=' -f2 | tr -d '"') in
-    pop|ubuntu|debian)
+  case $(grep -w ID_LIKE /etc/os-release | cut -d'=' -f2 | tr -d '"') in
+    *debian)
       if [ -f /run/reboot-required ]; then
         if [ -f /run/reboot-required.pkgs ]; then
           echo "The following packages require a system restart:"
@@ -77,7 +77,7 @@ rr() {
         fi
       fi
       ;;
-    rhel|centos)
+    *fedora)
       [ -x /usr/bin/needs-restarting ] && /usr/bin/needs-restarting -r || echo "command '/usr/bin/needs-restarting' not available"
       ;;
     *)
