@@ -78,7 +78,7 @@ __get_agent_pid() {
 }
 
 __get_agent_socket() {
-  find /tmp/ssh-* -type s -user ${USER} -name "agent.*" 2> /dev/null
+  find ~/.ssh/ -type s -user ${USER} -name "agent" 2> /dev/null
 }
 
 if [[ $(__get_agent_pid) -gt 1 ]] &&\
@@ -89,7 +89,7 @@ if [[ $(__get_agent_pid) -gt 1 ]] &&\
   echo -e "${BOLD}Agent pid ${SSH_AGENT_PID} (reconnected)${NORM}"
 else
   echo -ne "${BOLD}"
-  eval $(ssh-agent -s)
+  eval $(ssh-agent -a ~/.ssh/agent -s)
   echo -ne "${NORM}"
 fi
 

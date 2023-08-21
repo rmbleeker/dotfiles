@@ -40,7 +40,7 @@ lsusers() {
 }
 
 sshkill() {
-  for socket in $(find ~/.ssh -type s); do
+  for socket in $(find ~/.ssh -type s -user ${USER} ! -name "agent" 2> /dev/null); do
     if [[ -S ${socket} ]]; then
       socket=${socket##*/}  ## strip path
       port=${socket##*:}    ## save port number
