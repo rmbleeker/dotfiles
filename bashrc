@@ -88,7 +88,7 @@ if [[ $(__get_agent_pid) -gt 1 ]] &&\
   export SSH_AUTH_SOCK="/tmp/ssh-${USER}/agent"
   echo -e "${BOLD}Agent pid ${SSH_AGENT_PID} (reconnected)${NORM}"
 else
-  mkdir -p "/tmp/ssh-${USER}"
+  mkdir -m 0700 -p "/tmp/ssh-${USER}"
   echo -ne "${BOLD}"
   eval $(ssh-agent -a "/tmp/ssh-${USER}/agent" -s)
   echo -ne "${NORM}"
