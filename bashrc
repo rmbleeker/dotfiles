@@ -74,7 +74,7 @@ fi
 
 # Search for an existing ssh agent, connect to the first one we find
 __get_agent_pid() {
-  pgrep --full --uid ${USER} ${HOME}/.ssh/agent
+  pgrep --full --uid ${USER} "/tmp/ssh-${USER}/agent"
 }
 
 #__get_agent_socket() {
@@ -83,13 +83,14 @@ __get_agent_pid() {
 
 if [[ $(__get_agent_pid) -gt 1 ]] &&\
    [[ $(__get_agent_pid) -le $(< /proc/sys/kernel/pid_max) ]] &&\
-   [[ -S ${HOME}/.ssh/agent ]]; then
+   [[ -S "/tmp/ssh-${USER}/agent" ]]; then
   export SSH_AGENT_PID=$(__get_agent_pid)
-  export SSH_AUTH_SOCK=${HOME}/.ssh/agent
+  export SSH_AUTH_SOCK="/tmp/ssh-${USER}/agent"
   echo -e "${BOLD}Agent pid ${SSH_AGENT_PID} (reconnected)${NORM}"
 else
+  mkdir -p "/tmp/ssh-${USER}"
   echo -ne "${BOLD}"
-  eval $(ssh-agent -a ${HOME}/.ssh/agent -s)
+  eval $(ssh-agent -a "/tmp/ssh-${USER}/agent" -s)
   echo -ne "${NORM}"
 fi
 
