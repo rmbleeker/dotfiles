@@ -11,6 +11,10 @@ TAB: complete
 "\e[1;5B": menu-complete-backward   # Ctrl-down-arrow
 "\e[Z": menu-complete               # shift-TAB
 
+# map up and down arrow key to history search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
 # mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
 "\e[1;5C": forward-word
 "\e[1;5D": backward-word
