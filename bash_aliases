@@ -52,22 +52,35 @@ sshkill() {
 }
 
 update() {
-  case $(grep -w ID_LIKE /etc/os-release | cut -d'=' -f2 | tr -d '"') in
-    *debian)
+  if [ -f /etc/os-release ]; then
+    source /etc/os-release
+  else
+    echo "Not a supported distribution"
+    exit 1
+  fi
+  case ${ID_LIKE} in
+    *debian*)
       sudo apt update && sudo apt -y full-upgrade
       ;;
-    *fedora)
+    *fedora*)
       sudo yum -y update
       ;;
     *)
       echo "Unknown distribution, no idea how to update the system"
+      exit 1
       ;;
   esac
 }
 
 rr() {
-  case $(grep -w ID_LIKE /etc/os-release | cut -d'=' -f2 | tr -d '"') in
-    *debian)
+  if [ -f /etc/os-release ]; then
+    source /etc/os-release
+  else
+    echo "Not a supported distribution"
+    exit 1
+  fi
+  case ${ID_LIKE} in
+    *debian*)
       if [ -f /run/reboot-required ]; then
         if [ -f /run/reboot-required.pkgs ]; then
           echo "The following packages require a system restart:"
@@ -77,11 +90,17 @@ rr() {
         fi
       fi
       ;;
-    *fedora)
-      [ -x /usr/bin/needs-restarting ] && /usr/bin/needs-restarting -r || echo "command '/usr/bin/needs-restarting' not available"
+    *fedora*)
+      if [ -x /usr/bin/needs-restarting ]; then
+        /usr/bin/needs-restarting -r
+      else
+        echo "Command '/usr/bin/needs-restarting' not available"
+        exit 1
+      fi
       ;;
     *)
       echo "Unknown distribution, no idea how to check if a reboot of the system is required"
+      exit 1
       ;;
   esac
 }
