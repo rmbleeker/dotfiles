@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./.env
+source $(dirname -- ${0})/.env
 
 command -v xfreerdp &> /dev/null || (echo "Please install FreeRDP" && exit 1)
 command -v gcloud &> /dev/null || (echo "Please install Google Cloud CLI" && exit 1)
