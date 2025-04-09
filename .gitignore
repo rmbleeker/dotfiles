@@ -32,3 +32,5 @@ tags
 # Persistent undo
 [._]*.un~
 
+# Environment files might contain sensitive data
+.*env

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+source ./.env
+
+command -v xfreerdp &> /dev/null || (echo "Please install FreeRDP" && exit 1)
+command -v gcloud &> /dev/null || (echo "Please install Google Cloud CLI" && exit 1)
+command -v jq &> /dev/null || (echo "Please install jquery" && exit 1)
+
+case ${1} in
+  start)
+    [[ ! $(gcloud workstations describe ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} | jq '.state') =~ "STATE_RUNNING" ]] && \
+      gcloud workstations start ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} || \
+      echo "Already started workstation [${WORKSTATION}]."
+    pgrep --euid ${USER} --full "workstations start-tcp-tunnel ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} 3389 --local-host-port=:13389 --quiet --verbosity=none" &> /dev/null && \
+      echo "Tunnel to workstation [${WORKSTATION}] already up." || \
+      (gcloud workstations start-tcp-tunnel ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} 3389 --local-host-port=:13389 --quiet --verbosity=none &> /dev/null &) && \
+      sleep 3s
+    pgrep --euid ${USER} --full "xfreerdp /v:localhost:13389 /f" &> /dev/null && \
+      echo "RDP connection to workstation [${WORKSTATION}] already established." || \
+      xfreerdp /v:localhost:13389 /f &> /dev/null &
+    ;;
+  stop)
+    pkill --euid ${USER} --full "xfreerdp /v:localhost:13389 /f"
+    pkill --euid ${USER} --full "workstations start-tcp-tunnel ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} 3389 --local-host-port=:13389 --quiet --verbosity=none"
+    [[ ! "$(gcloud workstations describe ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} | jq '.state')" =~ "STATE_STOPPED" ]] && \
+      gcloud workstations stop ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} || \
+      echo "Already stopped workstation [${WORKSTATION}]."
+    ;;
+  usage|*)
+    echo "Run $(basename ${0}) with either the 'start' or the 'stop' parameter to start or stop the Google Cloud Workstation."
+    exit 1
+    ;;
+esac
+
