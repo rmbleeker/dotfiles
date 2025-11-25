@@ -13,11 +13,11 @@ case ${1} in
       echo "Already started workstation [${WORKSTATION}]."
     pgrep --euid ${USER} --full "workstations start-tcp-tunnel ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} 3389 --local-host-port=:13389 --quiet --verbosity=none" &> /dev/null && \
       echo "Tunnel to workstation [${WORKSTATION}] already up." || \
-      (gcloud workstations start-tcp-tunnel ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} 3389 --local-host-port=:13389 --quiet --verbosity=none &> /dev/null &) && \
-      sleep 3s
-    pgrep --euid ${USER} --full "xfreerdp /v:localhost:13389 /f" &> /dev/null && \
-      echo "RDP connection to workstation [${WORKSTATION}] already established." || \
-      xfreerdp /v:localhost:13389 /f &> /dev/null &
+      gcloud workstations start-tcp-tunnel ${WORKSTATION} --project=${PROJECT} --cluster=${CLUSTER} --config=${CONFIG} --region=${REGION} 3389 --local-host-port=:13389 --quiet --verbosity=none &> /dev/null &
+    until xfreerdp /v:localhost:13389 /f &> /dev/null ; do
+      echo "RDP connection not available yet"
+      sleep 10s
+    done
     ;;
   stop)
     pkill --euid ${USER} --full "xfreerdp /v:localhost:13389 /f"
